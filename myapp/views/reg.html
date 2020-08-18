@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>reg</title>
+    <script src="/js/jquery.js"></script>
+    <style type="text/css">
+        * {
+            margin: 0px;
+        }
+        #content {
+            margin: 150px auto;
+            width: 100%;
+            height: 460px;
+            border: 1px transparent solid;
+            background-color: #21D4FD;
+            background-image: linear-gradient(243deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -webkit-linear-gradient(243deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -moz-linear-gradient(243deg, #21D4FD 0%, #B721FF 100%);
+            background-image: -o-linear-gradient(243deg, #21D4FD 0%, #B721FF 100%);
+        }
+
+        #box {
+            margin: 50px auto;
+            width: 30%;
+            height: 360px;
+            background-color: #fff;
+            text-align: center;
+            border-radius: 15px;
+            border: 2px #fff solid;
+            box-shadow: 10px 10px 5px #000000;
+        }
+
+        .title {
+            line-height: 58px;
+            margin-top: 20px;
+            font-size: 36px;
+            color: #000;
+            height: 58px;
+        }
+
+        #box:hover {
+            border: 2px #fff solid;
+        }
+
+        .input {
+            margin-top: 20px;
+        }
+
+        input {
+            margin-top: 5px;
+            outline-style: none;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 13px 14px;
+            width: 70%;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: "Microsoft soft";
+        }
+
+        button {
+            margin-top: 20px;
+            border: none;
+            color: #000;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 15px;
+            background-color: #CCCCCC;
+        }
+        button:hover{
+            background-color: #B721FF;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <div id="box">
+            <div class="title">reg</div>
+            <div class="input">
+                <input type="text" id="user" value="" placeholder="用户名" />
+                <br>
+                <input type="password" id="psw" placeholder="密码" />
+                <br>
+                <br>
+                <button type="button" id="reg">注册</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $("#reg").click(function () {
+                var user = $("#user").val();
+                if (user=="") {
+                   window.alert("请填写账号");
+                            return false;
+                }
+                var psw = $("#psw").val();
+                if (age=="") {
+                   window.alert("请填写密码");
+                            return false;
+                }
+                                $.ajax({
+                    url: "http://localhost:3000/reg", //请求地址
+                    type: "GET", //请求方式  GET POST
+                    async: true, //是否异步
+                    data: {
+                        name: user,
+                        psw: psw
+                    },
+                    // dataType: "json", //预期的服务器响应的数据类型  json  jsonp
+                    // jsonpCallback: "", //在一个jsonp中规定回调函数的名称
+                    contentType: "application/x-www-form-urlencoded", //发送数据到服务器时所使用的数据类型
+                    success: function (response) {
+                        //成功后的回调
+                        console.log(response);
+                        if (response.msg == "success") {
+                            window.location.href = "login.html"
+
+                        } else {
+                            
+                            alert("注册失败")
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        //失败后的回调
+                        console.log(xhr);
+                        console.log(status);
+                        console.log(error);
+                    },
+                    complete: function () {
+                        //无论失败还是成功都会执行   请求完成
+                        console.log("请求已完成");
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>
